@@ -127,6 +127,7 @@ export default class App extends Component {
   }
 
   checkPositiveDiagonal(coordinates, identifier) {
+    console.log('checkingPosDiag', coordinates)
     let counter = 0
 
     while(true) {
@@ -137,130 +138,14 @@ export default class App extends Component {
       }
       counter += 1
     }
-
+    console.log(counter)
     let backwardsCounter = 0
     let winTracker = 0
 
     while(true) {
-      console.log("coordinates", coordinates, "matrix", this.connect4Matrix, "counter", counter, "backwards", backwardsCounter)
-      console.log(typeof(this.connect4Matrix[coordinates[0]][coordinates[1]]))
-      console.log(coordinates[0] + counter - backwardsCounter,coordinates[1] + counter - backwardsCounter)
-      // if(this.connect4Matrix[coordinates[0] + counter - backwardsCounter][
-      //   coordinates[1] + counter - backwardsCounter] === identifier) 
-      console.log(this.connect4Matrix[5][3])
-      if(this.connect4Matrix[6][3] === identifier)
-      {
+      if(this.connect4Matrix[coordinates[0] + counter - backwardsCounter][
+        coordinates[1] + counter - backwardsCounter] === identifier) {
         winTracker += 1
-        if(winTracker === 4) {
-          return true
-        }
-    } else {
-      winTracker = 0
-    }
-
-    if(coordinates[0] + counter - (backwardsCounter +1) === -1) {
-      break;
-    } else if(coordinates[1] + counter - (backwardsCounter +1) === -1) {
-      break;
-    }
-    backwardsCounter += 1
-
-  }
-  return false
-}
-
-  checkNegativeDiagonal(coordinates, identifier) {
-    let counter = 0
-
-    while(true) {
-      if(coordinates[0] + counter +1 === 7) {
-        break;
-      } else if (coordinates[1] - counter - 1 === -1) {
-        break;
-      }
-      counter += 1
-    }
-
-    let backwardsCounter = 0
-    let winTracker = 0
-
-    while(true) {
-      if(this.connect4Matrix[coordinates[0] + counter - backwardsCounter]
-        [coordinates[1] + backwardsCounter] === identifier) {
-          winTracker += 1
-          if(winTracker === 4) {
-            return true
-          }
-        } else {
-          winTracker = 0
-        }
-      if(coordinates[0] + counter - [backwardsCounter +1] === -1) {
-        break;
-      } else if (coordinates[1] - counter + (backwardsCounter +1) === 6) {
-        break;
-      }
-
-      backwardsCounter += 1
-    }
-
-    return false
-
-  }
-
-  checkHorizontal(coordinates, identifier) {
-    let counter = 0
-
-    while(true) {
-      if(coordinates[0] + counter + 1 === 7) {
-        break;
-      }
-      counter += 1
-    }
-
-    let backwardsCounter = 0
-    let winTracker = 0
-
-    while(true) {
-      if(this.connect4Matrix[coordinates[0] + counter - backwardsCounter]
-        [coordinates[1]] === identifier) {
-          winTracker += 1
-          if(winTracker === 4) {
-            return true
-          }
-        } else {
-          winTracker = 0
-        }
-      if(coordinates[0] + counter - (backwardsCounter +1) === -1) {
-        break;
-      }
-      if(coordinates[0] + counter - (backwardsCounter +1) === -1) {
-        break;
-      }
-
-      backwardsCounter += 1
-    }
-
-    return false
-  }
-
-  checkVertical(coordinates, identifier) {
-    let counter = 0
-
-    while(true) {
-      if(coordinates[1] + counter + 1 === 6) {
-        break;
-      }
-      counter += 1
-    }
-
-    let backwardsCounter = 0
-    let winTracker = 0
-
-    while(true) {
-      if(this.connect4Matrix[coordinates[0]][coordinates[1] + counter -
-      backwardsCounter] === identifier) {
-        winTracker += 1
-
         if(winTracker === 4) {
           return true
         }
@@ -268,14 +153,86 @@ export default class App extends Component {
         winTracker = 0
       }
 
-      if(coordinates[1] + counter - (backwardsCounter +1) === -1) {
+      if(coordinates[0] + counter - (backwardsCounter +1) === -1) {
+        break;
+      } else if(coordinates[1] + counter - (backwardsCounter +1) === -1) {
         break;
       }
-
       backwardsCounter += 1
-    }
 
+    }
     return false
+  }
+  checkNegativeDiagonal(coordinates, identifier) {
+
+    //only certain rows are possible. if x > 
+    let fourInARow = []
+    // for()
+  }
+
+  // checkNegativeDiagonal(coordinates, identifier) {
+  //   console.log("checkingNegDiag")
+  //   let counter = 0
+
+  //   while(true) {
+  //     if(coordinates[0] + counter +1 === 7) {
+  //       break;
+  //     } else if (coordinates[1] - counter - 1 === -1) {
+  //       break;
+  //     }
+  //     counter += 1
+  //   }
+
+  //   let backwardsCounter = 0
+  //   let winTracker = 0
+
+  //   while(true) {
+  //     if(this.connect4Matrix[coordinates[0] + counter - backwardsCounter]
+  //       [coordinates[1] + backwardsCounter] === identifier) {
+  //         winTracker += 1
+  //         if(winTracker === 4) {
+  //           return true
+  //         }
+  //       } else {
+  //         winTracker = 0
+  //       }
+  //     if(coordinates[0] + counter - [backwardsCounter +1] === -1) {
+  //       break;
+  //     } else if (coordinates[1] - counter + (backwardsCounter +1) === -1) {
+  //       break;
+  //     }
+
+  //     backwardsCounter += 1
+  //   }
+
+  //   return false
+
+  // }
+
+  checkHorizontal(coordinates, identifier) {
+    let fourInARow = []
+    for(let i = 0; i < 7; i ++) {
+      if(fourInARow.length === 4) {
+        return true
+      }
+      else if(this.connect4Matrix[i][coordinates[1]] === identifier) {
+        fourInARow.push(true)
+      } else { fourInARow = [] }
+    }
+    return fourInARow.length === 4? true : false
+  }
+
+  checkVertical(coordinates, identifier) {
+    let fourInARow = []
+    for(let i = 0; i < 6; i ++) {
+      if(fourInARow.length === 4) {
+        return true
+      }
+      else if(this.connect4Matrix[coordinates[0]][i] === identifier) {
+        fourInARow.push(true)
+      } else { fourInARow = [] }
+    }
+    return fourInARow.length === 4? true : false
   }
 
   executeWinner(identifier) {

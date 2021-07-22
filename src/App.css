@@ -3,8 +3,8 @@
 }
 
 .connect4 {
-  height: 100vh;
-  width: 100vw;
+  height: 500px;
+  width: 500px;
   background-color: black;
   opacity: .7;
   display: flex;
@@ -23,7 +23,7 @@
 .connect4-column {
   display: flex;
   width: 14.25%;
-  height: 100vw;
+  height: 100%;
   background-color:blue;
   flex-direction: column-reverse;
 }
