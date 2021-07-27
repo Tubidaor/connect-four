@@ -13,7 +13,7 @@ export default class App extends Component {
     this.state = {
       turn: true,
       board: [],
-      gameStarted: false
+      gameStarted: false,
     }
   }
 
@@ -115,9 +115,9 @@ export default class App extends Component {
         } else if( this.checkVertical(landingCoordinates, this.state.turn ? 1: 2
           ) === true) {
             return this.executeWinner(this.state.turn? 1: 2)
-        // } else if( this.checkNegativeDiagonal(
-        //   landingCoordinates, this.state.turn? 1: 2) === true) {
-        //     return this.executeWinner(this.state.turn? 1: 2)
+        } else if( this.checkNegativeDiagonal(
+          landingCoordinates, this.state.turn? 1: 2) === true) {
+            return this.executeWinner(this.state.turn? 1: 2)
         } else {
           this.setState((prev) => {
             return {
@@ -128,58 +128,25 @@ export default class App extends Component {
         }
   }
 
-  // checkPositiveDiagonal(coordinates, identifier) {
-  //   console.log('checkingPosDiag', coordinates)
-  //   let counter = 0
+  restart = () => {
+    this.setState({
+      gameStarted: false
+    })
+  }
 
-  //   while(true) {
-  //     if(coordinates[0] + counter +1 === 7) {
-  //       break;
-  //     } else if(coordinates[1] + counter +1 === 6) {
-  //       break;
-  //     }
-  //     counter += 1
-  //   }
-  //   console.log(counter)
-  //   let backwardsCounter = 0
-  //   let winTracker = 0
-
-  //   while(true) {
-  //     if(this.connect4Matrix[coordinates[0] + counter - backwardsCounter][
-  //       coordinates[1] + counter - backwardsCounter] === identifier) {
-  //       winTracker += 1
-  //       if(winTracker === 4) {
-  //         return true
-  //       }
-  //     } else {
-  //       winTracker = 0
-  //     }
-
-  //     if(coordinates[0] + counter - (backwardsCounter +1) === -1) {
-  //       break;
-  //     } else if(coordinates[1] + counter - (backwardsCounter +1) === -1) {
-  //       break;
-  //     }
-  //     backwardsCounter += 1
-
-  //   }
-  //   return false
-  // }
-  checkPositiveDiagonal(coordinates, identifier) {
-
-    //only certain rows are possible. if x > 
+  checkPositiveDiagonal(coordinates, identifier) { 
     let startDiag = {x: coordinates[0], y: coordinates[1]}
     let fourInARow = []
 
     while(startDiag.y > 0) {
-      startDiag.x = startDiag.x - 1
-      startDiag.y = startDiag.y -1
       if(startDiag.x === 0) {
         break;
       }
+      startDiag.x = startDiag.x - 1
+      startDiag.y = startDiag.y -1
     }
     let checkRow = {x: startDiag.x, y: startDiag.y}
-    console.log("start",startDiag, "checkRow",checkRow)
+    // console.log("start",startDiag, "checkRow",checkRow)
     while(checkRow.y < 5) {
 
       if(fourInARow.length === 4) {
@@ -191,10 +158,10 @@ export default class App extends Component {
       console.log(this.connect4Matrix[checkRow.x][checkRow.y],checkRow.x, checkRow.y)
       if(this.connect4Matrix[checkRow.x][checkRow.y] === identifier) {
         fourInARow.push(true)
-        console.log("true",fourInARow)
+        // console.log("true",fourInARow)
       } 
       else { fourInARow = [] }
-      console.log(checkRow)
+      // console.log(checkRow)
       checkRow.x = checkRow.x + 1
       checkRow.y = checkRow.y + 1
     }
@@ -202,46 +169,41 @@ export default class App extends Component {
     console.log(fourInARow)
     return fourInARow.length === 4? true : false
   }
+  checkNegativeDiagonal(coordinates, identifier) { 
+    let startDiag = {x: coordinates[0], y: coordinates[1]}
+    let fourInARow = []
+    console.log("start",startDiag)
+    while(startDiag.y > 0) {
+      if(startDiag.x === 6) {
+        break;
+      }
+      startDiag.x = startDiag.x + 1
+      startDiag.y = startDiag.y - 1
+    }
+    let checkRow = {x: startDiag.x, y: startDiag.y}
+    console.log("checkRow",checkRow)
+    while(checkRow.y < 5) {
 
-  // checkNegativeDiagonal(coordinates, identifier) {
-  //   console.log("checkingNegDiag")
-  //   let counter = 0
+      if(fourInARow.length === 4) {
+        return true
+      }
+      if(checkRow.x < 0 || checkRow.y > 5) {
+        break
+      }
+      console.log(this.connect4Matrix[checkRow.x][checkRow.y],checkRow.x, checkRow.y)
+      if(this.connect4Matrix[checkRow.x][checkRow.y] === identifier) {
+        fourInARow.push(true)
+        console.log("true",fourInARow)
+      } 
+      else { fourInARow = [] }
+      console.log(checkRow)
+      checkRow.x = checkRow.x - 1
+      checkRow.y = checkRow.y + 1
+    }
 
-  //   while(true) {
-  //     if(coordinates[0] + counter +1 === 7) {
-  //       break;
-  //     } else if (coordinates[1] - counter - 1 === -1) {
-  //       break;
-  //     }
-  //     counter += 1
-  //   }
-
-  //   let backwardsCounter = 0
-  //   let winTracker = 0
-
-  //   while(true) {
-  //     if(this.connect4Matrix[coordinates[0] + counter - backwardsCounter]
-  //       [coordinates[1] + backwardsCounter] === identifier) {
-  //         winTracker += 1
-  //         if(winTracker === 4) {
-  //           return true
-  //         }
-  //       } else {
-  //         winTracker = 0
-  //       }
-  //     if(coordinates[0] + counter - [backwardsCounter +1] === -1) {
-  //       break;
-  //     } else if (coordinates[1] - counter + (backwardsCounter +1) === -1) {
-  //       break;
-  //     }
-
-  //     backwardsCounter += 1
-  //   }
-
-  //   return false
-
-  // }
-
+    console.log(fourInARow)
+    return fourInARow.length === 4? true : false
+  }
   checkHorizontal(coordinates, identifier) {
     let fourInARow = []
     for(let i = 0; i < 7; i ++) {
@@ -277,17 +239,44 @@ export default class App extends Component {
     }
 
     this.setState({
-      board: <div className="winner-statement">{`${player} Won the game!`}</div>
+      board: this.playagain(player)
     })
   }
 
+  playagain(player) {
+    return (
+      <>
+        <div className="winner-statement">{`${player} Won the game!`}</div>
+        <div className="play-again-btn-wrapper">
+          <button className="play-again-btn" onClick={() => this.restart()}>
+            Play Again
+          </button>
+        </div>
+      </>
+    )
+  }
+
+  whichPlayersTurn() {
+      if(this.state.turn === true) {
+        return (
+          <div className="player-one">Player one's turn</div>
+        )
+      } else {
+          return (
+            <div className="player-two">Player two's turn</div>
+          )
+      }
+  
+  }
   render() {
+    console.log(this.state.turn)
     return (
       <div className="connect4">
         {this.state.gameStarted? this.state.board :
         <div onClick={() => this.generateBoard()} className="start-game">
           Start
         </div>}
+        {this.state.gameStarted? this.whichPlayersTurn() : ""}
       </div>)
   }
 

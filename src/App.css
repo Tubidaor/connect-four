@@ -1,3 +1,4 @@
+@import-normalize;
 * {
   box-sizing: border-box
 }
@@ -41,4 +42,29 @@
   height: 16.5%;
   width: 90%;
   margin: 5px;
+}
+.winner-statement {
+  color: yellow;
+  height: 50px;
+  width: 50px;
+}
+.play-again-btn {
+  color: blue !important;
+  height: 40px;
+  width: 40px;
+}
+.play-again-btn-wrapper {
+  color: blue;
+  width: 100%;
+  height: 40px;
+}
+.player-one {
+  color: red;
+  height: 20px;
+  width: 40px;
+}
+.player-two {
+  color: blue;
+  height: 20px;
+  width: 40px;
 }
