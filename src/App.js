@@ -259,11 +259,11 @@ export default class App extends Component {
   whichPlayersTurn() {
       if(this.state.turn === true) {
         return (
-          <div className="player-one">Player one's turn</div>
+          <div className="player-one players">Player one's turn</div>
         )
       } else {
           return (
-            <div className="player-two">Player two's turn</div>
+            <div className="player-two players">Player two's turn</div>
           )
       }
   
@@ -271,13 +271,20 @@ export default class App extends Component {
   render() {
     console.log(this.state.turn)
     return (
-      <div className="connect4">
-        {this.state.gameStarted? this.state.board :
-        <div onClick={() => this.generateBoard()} className="start-game">
-          Start
-        </div>}
-        {this.state.gameStarted? this.whichPlayersTurn() : ""}
-      </div>)
+      <div className="game-wrapper">
+        <h2>
+          <span className="connect-span">CONNECT</span>
+          <span className="four-span">4</span>
+        </h2>
+          {this.state.gameStarted? this.whichPlayersTurn() : ""}
+        <div className="connect4">
+          {this.state.gameStarted? this.state.board :
+          <div onClick={() => this.generateBoard()} className="start-game">
+            <span className="start-span">Start</span>
+          </div>}
+        </div>
+    </div>
+    )
   }
 
 }
