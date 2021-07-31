@@ -2,7 +2,11 @@
 * {
   box-sizing: border-box
 }
-
+:root {
+  --chip-size: 35px;
+  --board-width: 300px;
+  --board-height: calc(var(--board-width) - calc(var(--board-width) * .1))
+}
 .game-wrapper {
   height: 100vh;
   width: 100%;
@@ -42,8 +46,8 @@ h2 {
   border-radius: 10px;
 }
 .connect4 {
-  height: 300px;
-  width: 300px;
+  height: var(--board-height);
+  width: var(--board-width);
   border-radius: 20px;
   background-color: black;
   opacity: .9;
@@ -54,18 +58,6 @@ h2 {
   margin-left: auto;
   overflow: hidden;
 }
-.connect4-slot {
-  background-color: black;
-  border-radius: 40px 40px;
-  height: 15.5%;
-  width: 90%;
-  margin: 5px;
-}
-.start-span {
-  background-color: black;
-  /* -webkit-text-stroke: 1px white; */
-
-}
 .start-game {
   margin-left: auto;
   margin-right: auto;
@@ -73,40 +65,53 @@ h2 {
 }
 .connect4-column {
   display: flex;
-  width: 14.25%;
+  width: calc(100% / 7);
   height: 100%;
-  background-color:blue;
+  background-color:#1962f2;
   flex-direction: column-reverse;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.play-chip {
+  border-radius: 50%;
+  background-color: black;
+  border-radius: 40px 40px;
+  height: var(--chip-size);
+  width: var(--chip-size);
+  margin: 5px;
 }
 .connect4-player1 {
   background-color: #f41a24;
-  border-radius: 50%;
-  height: 16.5%;
-  width: 90%;
-  margin: 5px;
 }
 .connect4-player2 {
   background-color: #fbef41;
-  /* border: 2px solid black; */
-  border-radius: 50%;
-  height: 16.5%;
-  width: 90%;
-  margin: 5px;
 }
 .winner-statement {
-  color: #fbef41;
-  height: 50px;
-  width: 50px;
+  color: white;
+  height: 50%;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  padding-top: 40px;
+  font-weight: bold;
+}
+.play-again-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 .play-again-btn {
-  color: #fbef41;
-  height: 40px;
-  width: 40px;
-}
-.play-again-btn-wrapper {
-  color: #fbef41;
-  width: 100%;
-  height: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  height: 30px;
+  width: 100px;
+  font-size: 16px;
+  border-radius: 10px;
+  color: white;
+  border: 3px solid white;
+  background-color: black;
+  font-weight: bold;
 }
 .player-one {
   color: #f41a24;
@@ -124,7 +129,7 @@ h2 {
   border-radius: 5px;
   margin-top: 40px;
   font-weight: bold;
-  background-color: black;
+  background-color: #1962f2;
 }
 @media screen and (max-width: 320px) {
 

@@ -14,6 +14,7 @@ export default class App extends Component {
       turn: true,
       board: [],
       gameStarted: false,
+      gameOver: false
     }
   }
 
@@ -130,7 +131,8 @@ export default class App extends Component {
 
   restart = () => {
     this.setState({
-      gameStarted: false
+      gameStarted: false,
+      gameOver: false
     })
   }
 
@@ -233,21 +235,22 @@ export default class App extends Component {
   executeWinner(identifier) {
     let player = ""
     if(identifier === 1) {
-      player = "Red"
+      player = "Player One"
     } else if (identifier === 2) {
-      player = "Blue"
+      player = "Player Two"
     }
 
     this.setState({
-      board: this.playagain(player)
+      board: this.playagain(player),
+      gameOver: true
     })
   }
 
   playagain(player) {
     return (
       <>
-        <div className="winner-statement">{`${player} Won the game!`}</div>
-        <div className="play-again-btn-wrapper">
+        <div className="play-again-wrapper">
+          <div className="winner-statement">{`${player} wins!`}</div>
           <button className="play-again-btn" onClick={() => this.restart()}>
             Play Again
           </button>
@@ -259,24 +262,24 @@ export default class App extends Component {
   whichPlayersTurn() {
       if(this.state.turn === true) {
         return (
-          <div className="player-one players">Player one's turn</div>
+          <div className="player-one players">Player One</div>
         )
       } else {
           return (
-            <div className="player-two players">Player two's turn</div>
+            <div className="player-two players">Player Two</div>
           )
       }
   
   }
   render() {
-    console.log(this.state.turn)
+    console.log(this.state.gameStarted, this.state.gameOver)
     return (
       <div className="game-wrapper">
         <h2>
           <span className="connect-span">CONNECT</span>
           <span className="four-span">4</span>
         </h2>
-          {this.state.gameStarted? this.whichPlayersTurn() : ""}
+          {(this.state.gameOver === false) && this.state.gameStarted? this.whichPlayersTurn(): ""}
         <div className="connect4">
           {this.state.gameStarted? this.state.board :
           <div onClick={() => this.generateBoard()} className="start-game">
