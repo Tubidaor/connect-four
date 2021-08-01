@@ -33,7 +33,6 @@ export default class App extends Component {
   }
 
   generateBoard() {
-    console.log('game generated')
     this.createMatrix()
     let gameboard = []
       for(let i = 0; i < 7; i ++) {
@@ -148,7 +147,6 @@ export default class App extends Component {
       startDiag.y = startDiag.y -1
     }
     let checkRow = {x: startDiag.x, y: startDiag.y}
-    // console.log("start",startDiag, "checkRow",checkRow)
     while(checkRow.y < 5) {
 
       if(fourInARow.length === 4) {
@@ -157,24 +155,19 @@ export default class App extends Component {
       if(checkRow.x > 6 || checkRow.y > 5) {
         break
       }
-      console.log(this.connect4Matrix[checkRow.x][checkRow.y],checkRow.x, checkRow.y)
       if(this.connect4Matrix[checkRow.x][checkRow.y] === identifier) {
         fourInARow.push(true)
-        // console.log("true",fourInARow)
       } 
       else { fourInARow = [] }
-      // console.log(checkRow)
       checkRow.x = checkRow.x + 1
       checkRow.y = checkRow.y + 1
     }
 
-    console.log(fourInARow)
     return fourInARow.length === 4? true : false
   }
   checkNegativeDiagonal(coordinates, identifier) { 
     let startDiag = {x: coordinates[0], y: coordinates[1]}
     let fourInARow = []
-    console.log("start",startDiag)
     while(startDiag.y > 0) {
       if(startDiag.x === 6) {
         break;
@@ -183,7 +176,6 @@ export default class App extends Component {
       startDiag.y = startDiag.y - 1
     }
     let checkRow = {x: startDiag.x, y: startDiag.y}
-    console.log("checkRow",checkRow)
     while(checkRow.y < 5) {
 
       if(fourInARow.length === 4) {
@@ -192,18 +184,13 @@ export default class App extends Component {
       if(checkRow.x < 0 || checkRow.y > 5) {
         break
       }
-      console.log(this.connect4Matrix[checkRow.x][checkRow.y],checkRow.x, checkRow.y)
       if(this.connect4Matrix[checkRow.x][checkRow.y] === identifier) {
         fourInARow.push(true)
-        console.log("true",fourInARow)
       } 
       else { fourInARow = [] }
-      console.log(checkRow)
       checkRow.x = checkRow.x - 1
       checkRow.y = checkRow.y + 1
     }
-
-    console.log(fourInARow)
     return fourInARow.length === 4? true : false
   }
   checkHorizontal(coordinates, identifier) {
@@ -272,7 +259,6 @@ export default class App extends Component {
   
   }
   render() {
-    console.log(this.state.gameStarted, this.state.gameOver)
     return (
       <div className="game-wrapper">
         <h2>

@@ -2,6 +2,7 @@
 * {
   box-sizing: border-box
 }
+
 :root {
   --chip-size: 35px;
   --board-width: 300px;
@@ -12,6 +13,8 @@
   width: 100%;
   background-color: rgba(228, 233, 237, 1);
   padding-top: 1px;
+  overflow: auto;
+  padding-bottom: 10px;
 }
 h2 {
   position: relative;
@@ -23,17 +26,16 @@ h2 {
   padding: 1px;
   border: 3px solid white;
   font-size: 20px;
+  border-radius: 12px;
 }
 .four-span {
   color: #f41a24;
-  /* background-color: black; */
-  /* border: 3px solid white; */
   font-size: 50px;
   -webkit-text-stroke-color: black;
   -webkit-text-stroke-width: 2px;
   position: absolute;
   display: inline-block;
-  margin-top: -20px;
+  margin-top: -15px;
   margin-left: -2px;
 }
 .start-span {
@@ -71,6 +73,8 @@ h2 {
   flex-direction: column-reverse;
   margin-top: auto;
   margin-bottom: auto;
+  margin-left: auto;
+  margin-right: auto
 }
 .play-chip {
   border-radius: 50%;
@@ -78,7 +82,10 @@ h2 {
   border-radius: 40px 40px;
   height: var(--chip-size);
   width: var(--chip-size);
-  margin: 5px;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 .connect4-player1 {
   background-color: #f41a24;
@@ -131,6 +138,15 @@ h2 {
   font-weight: bold;
   background-color: #1962f2;
 }
-@media screen and (max-width: 320px) {
-
+@media screen and (min-width: 768px) {
+  :root  {--chip-size: 55px;
+    --board-width: 500px;
+    --board-height: calc(var(--board-width) - calc(var(--board-width) * .2))
+  }
+}
+@media screen and (min-width: 1000px) {
+  :root  {--chip-size: 70px;
+    --board-width: 700px;
+    --board-height: calc(var(--board-width) - calc(var(--board-width) * .3))
+  }
 }
